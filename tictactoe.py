@@ -102,36 +102,42 @@ def utility(board):
     return 0
 
 
-def max_value(board):
+def max_value(board, min=math.inf):
     if terminal(board):
         return (utility(board), None)
 
-    v = -math.inf
+    max = -math.inf
     best_action = None
 
     for action in actions(board):
-        value = min_value(result(board, action))[0]
-        if value > v:
-            v = value
+        value = min_value(result(board, action), max)[0]
+        # Aplha-Beta Pruning
+        if value > min:
+            return (value, action)
+        if value > max:
+            max = value
             best_action = action
 
-    return (v, best_action)
+    return (max, best_action)
 
 
-def min_value(board):
+def min_value(board, max=-math.inf):
     if terminal(board):
         return (utility(board), None)
 
-    v = math.inf
+    min = math.inf
     best_action = None
 
     for action in actions(board):
-        value = max_value(result(board, action))[0]
-        if value < v:
-            v = value
+        value = max_value(result(board, action), min)[0]
+        # Aplha-Beta Pruning
+        if value < max:
+            return (value, action)
+        if value < min:
+            min = value
             best_action = action
 
-    return (v, best_action)
+    return (min, best_action)
 
 
 def minimax(board):
