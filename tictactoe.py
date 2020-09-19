@@ -114,6 +114,7 @@ def max_value(board, min=math.inf):
         # Aplha-Beta Pruning
         if value > min:
             return (value, action)
+
         if value > max:
             max = value
             best_action = action
@@ -133,6 +134,7 @@ def min_value(board, max=-math.inf):
         # Aplha-Beta Pruning
         if value < max:
             return (value, action)
+
         if value < min:
             min = value
             best_action = action
